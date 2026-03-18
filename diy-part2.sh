@@ -13,10 +13,13 @@
 
 
 
-#替换为新版本golang
+#修改golang版本
 #rm -rf feeds/packages/lang/golang
 #git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
 #./scripts/feeds install -a -f
 
-
+# 修复 mbedtls 与 GCC 14 + musl fortify 的兼容性问题
+# 参考: https://github.com/openwrt/openwrt/issues/15351
+# 禁用 fortify source 以避免 memset inline 错误
+echo 'TARGET_CFLAGS+=-U_FORTIFY_SOURCE' >> package/libs/mbedtls/Makefile
 
