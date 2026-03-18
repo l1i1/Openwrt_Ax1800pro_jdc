@@ -94,15 +94,8 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        #sudo rm -rf /usr/share/dotnet /etc/apt/sources.list.d /usr/local/lib/android $AGENT_TOOLSDIRECTORY
-        #sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         sudo -E apt-get -y update
-           - name: 初始化编译环境
-     env:
-       DEBIAN_FRONTEND: noninteractive
-     run: |
-         sudo -E apt-get -y update
-         sudo -E apt-get -y install \
+        sudo -E apt-get -y install \
            ack antlr3 aria2 asciidoc autoconf automake autopoint binutils bison \
            btrfs-progs build-essential bzip2 ca-certificates ccache cmake coreutils \
            cpio curl device-tree-compiler fastjar flex g++-multilib gawk gcc-multilib \
