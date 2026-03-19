@@ -14,8 +14,12 @@
 # Insert after cmake.mk include to filter out -D_FORTIFY_SOURCE
 sed -i '/include.*cmake\.mk/a TARGET_CFLAGS:=$(filter-out -D_FORTIFY_SOURCE=%,$(TARGET_CFLAGS))' package/libs/mbedtls/Makefile
 
-# Remove ddns-go (requires Go 1.25+, current env is Go 1.24)
+# Remove packages requiring Go 1.25+ (current env is Go 1.24)
 rm -rf feeds/kenzo/ddns-go
+rm -rf feeds/small/v2ray-plugin
+
+# Remove packages requiring Go 1.25+ (current env is Go 1.24)
+rm -rf feeds/small/v2ray-plugin
 
 # Remove trojan-plus (Boost system library issue)
 rm -rf feeds/small/trojan-plus
