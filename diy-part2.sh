@@ -23,3 +23,6 @@
 # 在 cmake.mk 之后插入 TARGET_CFLAGS filter，移除 FORTIFY_SOURCE
 sed -i '/include.*cmake\.mk/a TARGET_CFLAGS:=$(filter-out -D_FORTIFY_SOURCE=%,$(TARGET_CFLAGS))' package/libs/mbedtls/Makefile
 
+# 修复 ddns-go Go 版本要求问题 - 降级到支持 Go 1.24 的版本
+cd feeds/kenzo/ddns-go && git checkout v6.14.0 && cd ../../..
+
