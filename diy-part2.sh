@@ -10,15 +10,12 @@
 # Description: OpenWrt DIY script part 2 (After Update feeds)
 #
 
-#淇敼golang鐗堟湰
-#rm -rf feeds/packages/lang/golang
-#git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
-#./scripts/feeds install -a -f
+# Fix mbedtls GCC14 + musl fortify compatibility
+# Insert after cmake.mk include to filter out -D_FORTIFY_SOURCE
+sed -i '/include.*cmake\.mk/a TARGET_CFLAGS:=$(filter-out -D_FORTIFY_SOURCE=%,$(TARGET_CFLAGS))' package/libs/mbedtls/Makefile
 
-# 淇 mbedtls 涓?GCC 14 + musl fortify 鐨勫吋瀹规€ч棶棰?sed -i "/include.*cmake\.mk/a TARGET_CFLAGS:=`$(filter-out -D_FORTIFY_SOURCE=%,`$(TARGET_CFLAGS))" package/libs/mbedtls/Makefile
-
-# 绉婚櫎 ddns-go (闇€瑕?Go 1.25+锛屽綋鍓嶇幆澧冧负 Go 1.24)
+# Remove ddns-go (requires Go 1.25+, current env is Go 1.24)
 rm -rf feeds/kenzo/ddns-go
 
-# 绉婚櫎 trojan-plus (Boost system 搴撶紪璇戦棶棰?
+# Remove trojan-plus (Boost system library issue)
 rm -rf feeds/small/trojan-plus
