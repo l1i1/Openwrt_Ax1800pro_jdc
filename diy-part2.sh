@@ -20,6 +20,6 @@
 
 # 修复 mbedtls 与 GCC 14 + musl fortify 的兼容性问题
 # 参考: https://github.com/openwrt/openwrt/issues/15351
-# 在 include rules.mk 之后插入，从 TARGET_CFLAGS 中移除 -D_FORTIFY_SOURCE
-sed -i '/include.*rules\.mk/a TARGET_CFLAGS:=$(filter-out -D_FORTIFY_SOURCE=%,$(TARGET_CFLAGS))' package/libs/mbedtls/Makefile
+# 在 cmake.mk 之后插入 TARGET_CFLAGS filter，移除 FORTIFY_SOURCE
+sed -i '/include.*cmake\.mk/a TARGET_CFLAGS:=$(filter-out -D_FORTIFY_SOURCE=%,$(TARGET_CFLAGS))' package/libs/mbedtls/Makefile
 
