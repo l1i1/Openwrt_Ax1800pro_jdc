@@ -15,9 +15,18 @@
 sed -i '/include.*cmake\.mk/a TARGET_CFLAGS:=$(filter-out -D_FORTIFY_SOURCE=%,$(TARGET_CFLAGS))' package/libs/mbedtls/Makefile
 
 # Remove packages requiring Go 1.25+ (current env is Go 1.24)
+# feeds/kenzo (kenzok8/openwrt-packages)
 rm -rf feeds/kenzo/ddns-go
+
+# feeds/small (kenzok8/small) - ALL Go-based proxy packages requiring Go 1.25+
 rm -rf feeds/small/v2ray-plugin
 rm -rf feeds/small/xray-core
+rm -rf feeds/small/v2ray-core
+rm -rf feeds/small/v2ray-geodata
 
 # Remove trojan-plus (Boost system library issue)
 rm -rf feeds/small/trojan-plus
+
+# Remove packages user requested to remove
+rm -rf feeds/small/sing-box
+rm -rf feeds/small/hysteria
