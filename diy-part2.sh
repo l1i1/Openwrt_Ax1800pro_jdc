@@ -14,27 +14,39 @@
 # Insert after cmake.mk include to filter out -D_FORTIFY_SOURCE
 sed -i '/include.*cmake\.mk/a TARGET_CFLAGS:=$(filter-out -D_FORTIFY_SOURCE=%,$(TARGET_CFLAGS))' package/libs/mbedtls/Makefile
 
-# Remove v2ray-related packages (Go 1.25+ or user request)
+# Remove v2ray/trojan/xray/ddns-go from feeds/small (kenzok8/small)
 rm -rf feeds/small/v2ray-plugin
 rm -rf feeds/small/v2ray-core
 rm -rf feeds/small/v2ray-geodata
 rm -rf feeds/small/v2raya
-
-# Remove xray-related packages (Go 1.25+)
 rm -rf feeds/small/xray-core
 rm -rf feeds/small/xray-plugin
-
-# Remove trojan-related packages (Boost/Go issues + user request)
 rm -rf feeds/small/trojan
 rm -rf feeds/small/trojan-go
 rm -rf feeds/small/trojan-plus
-
-# Remove ddns-go (Go 1.25+)
-rm -rf feeds/kenzo/ddns-go
-
-# Remove v2dat
-rm -rf feeds/packages/utils/v2dat
-
-# Remove other user-requested packages
 rm -rf feeds/small/sing-box
 rm -rf feeds/small/hysteria
+
+# Remove from feeds/kenzo (kenzok8/openwrt-packages)
+rm -rf feeds/kenzo/ddns-go
+
+# Remove v2dat from feeds/packages
+rm -rf feeds/packages/utils/v2dat
+
+# Remove from package/helloworld (xiaorouji/openwrt-passwall-packages)
+rm -rf package/helloworld/v2ray-plugin
+rm -rf package/helloworld/v2ray-geodata
+rm -rf package/helloworld/xray-core
+rm -rf package/helloworld/trojan-plus
+rm -rf package/helloworld/trojan-go
+rm -rf package/helloworld/sing-box
+rm -rf package/helloworld/hysteria
+
+# Disable .config options that reference removed packages
+sed -i 's/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_V2ray_Plugin=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_V2ray_Plugin is not set/' .config
+sed -i 's/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray is not set/' .config
+sed -i 's/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Trojan_Plus=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Trojan_Plus is not set/' .config
+sed -i 's/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_SingBox=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_SingBox is not set/' .config
+sed -i 's/CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Hysteria=y/# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Hysteria is not set/' .config
+sed -i 's/CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Xray=y/# CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Xray is not set/' .config
+sed -i 's/CONFIG_PACKAGE_sing-box=y/# CONFIG_PACKAGE_sing-box is not set/' .config
