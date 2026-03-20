@@ -17,9 +17,7 @@ sed -i '/include.*cmake\.mk/a TARGET_CFLAGS:=$(filter-out -D_FORTIFY_SOURCE=%,$(
 # Remove packages requiring Go 1.25+ (current env is Go 1.24)
 rm -rf feeds/kenzo/ddns-go
 rm -rf feeds/small/v2ray-plugin
-
-# Remove packages requiring Go 1.25+ (current env is Go 1.24)
-rm -rf feeds/small/v2ray-plugin
+rm -rf feeds/small/xray-core
 
 # Remove trojan-plus (Boost system library issue)
 rm -rf feeds/small/trojan-plus
